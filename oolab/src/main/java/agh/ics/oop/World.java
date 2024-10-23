@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 
 public class World {
@@ -23,19 +24,23 @@ public class World {
     }
 
     public static void main(String[] args) {
-        System.out.println("Start");
+        /*System.out.println("Start");
 
         MoveDirection[] enumArgs = OptionsParser.parser(args);
         System.out.println(enumArgs[0]);
         run(enumArgs);
 
         System.out.println("Stop");
-        /*MapDirection direction = MapDirection.NORTH;
+        MapDirection direction = MapDirection.NORTH;
         Vector2d position1 = direction.toUnitVector();
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
         System.out.println(position2.add(position1));*/
+
+        Animal gitus = new Animal();
+        System.out.println(gitus.toString());
+
 
     }
 }
