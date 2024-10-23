@@ -25,10 +25,17 @@ public class World {
     public static void main(String[] args) {
         System.out.println("Start");
 
-        MoveDirection[] enumargs = OptionsParser.Parser(args);
-        System.out.println(enumargs[0]);
-        run(enumargs);
+        MoveDirection[] enumArgs = OptionsParser.parser(args);
+        System.out.println(enumArgs[0]);
+        run(enumArgs);
 
         System.out.println("Stop");
+        /*MapDirection direction = MapDirection.NORTH;
+        Vector2d position1 = direction.toUnitVector();
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position2.add(position1));*/
+
     }
 }

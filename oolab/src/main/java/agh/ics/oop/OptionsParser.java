@@ -3,18 +3,26 @@ package agh.ics.oop;
 import agh.ics.oop.model.MoveDirection;
 
 public class OptionsParser {
-    public static MoveDirection[] Parser(String[] arg){
-        MoveDirection[] moveDirections = new MoveDirection[arg.length];
+
+    public static MoveDirection[] parser(String[] arg){
+        int newLen = 0;
+        for (int i = 0; i < arg.length; i++) {
+            String s = arg[i];
+            if (s == "f" || s == "b" || s == "l" || s == "r") newLen++;
+        }
+        MoveDirection[] moveDirections = new MoveDirection[newLen];
         int mdi = 0;
         for (String s : arg) {
-            switch (s) {
-                case "f" -> moveDirections[mdi] = MoveDirection.FORWARD;
-                case "b" -> moveDirections[mdi] = MoveDirection.BACKWARD;
-                case "l" -> moveDirections[mdi] = MoveDirection.LEFT;
-                case "r" -> moveDirections[mdi] = MoveDirection.RIGHT;
-                default -> mdi--;
+            if (s=="f" || s=="b" || s=="l" || s=="r") {
+                moveDirections[mdi] = switch (s) {
+                    case "f" -> MoveDirection.FORWARD;
+                    case "b" -> MoveDirection.BACKWARD;
+                    case "l" -> MoveDirection.LEFT;
+                    case "r" -> MoveDirection.RIGHT;
+                    default -> throw new IllegalStateException("Unexpected value: " + s);
+                };
+                mdi++;
             }
-            mdi++;
         }
         return moveDirections;
     }
