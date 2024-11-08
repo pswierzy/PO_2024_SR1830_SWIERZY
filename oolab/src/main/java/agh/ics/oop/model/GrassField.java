@@ -2,22 +2,18 @@ package agh.ics.oop.model;
 
 import agh.ics.oop.model.util.MapVisualizer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static java.lang.Math.sqrt;
 
-public class GrassField implements WorldMap {
+public class GrassField extends AbstractWorldMap {
 
     private Map<Vector2d, Grass> grassMap = new HashMap<>();
-    private Map<Vector2d, Animal> animals = new HashMap<>();
     private int numberOfGrass;
 
     public GrassField(int numberOfGrass) {
         this.numberOfGrass = numberOfGrass;
         createGrassMap();
-        grassMap.put(new Vector2d(3,3), new Grass(new Vector2d(3,3)));
     }
     private void createGrassMap() {
         Random rand = new Random();
@@ -36,27 +32,13 @@ public class GrassField implements WorldMap {
     }
 
     @Override
-    public boolean place(Animal animal) {
-        if(!canMoveTo(animal.getPosition())) return false;
-        animals.put(animal.getPosition(), animal);
-        return true;
-    }
-
-    @Override
-    public void move(Animal animal, MoveDirection direction) {
-        animals.remove(animal.getPosition());
-        animal.move(direction, this);
-        place(animal);
-    }
-
-    @Override
     public boolean isOccupied(Vector2d position) {
-        return animals.containsKey(position) || grassMap.containsKey(position);
+        return super.isOccupied(position) || grassMap.containsKey(position);
     }
 
     @Override
     public WorldElement objectAt(Vector2d position) {
-        if(animals.containsKey(position)) return animals.get(position);
+        if(animals.containsKey(position)) return super.objectAt(position);
         return grassMap.get(position);
     }
 
@@ -74,5 +56,12 @@ public class GrassField implements WorldMap {
             if (position.getY()>maxY) maxY = position.getY();
         }
         return new MapVisualizer(this).draw(new Vector2d(0,0), new Vector2d(maxX,maxY));
+    }
+
+    @Override
+    public List<WorldElement> getElements() {
+        List<WorldElement> elements = super.getElements();
+        elements.addAll(grassMap.values());
+        return elements;
     }
 }
