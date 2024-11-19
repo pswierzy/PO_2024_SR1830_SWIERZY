@@ -3,6 +3,7 @@ package agh.ics.oop;
 import agh.ics.oop.model.Animal;
 import agh.ics.oop.model.MoveDirection;
 import agh.ics.oop.model.Vector2d;
+import agh.ics.oop.model.WorldMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +40,21 @@ public class Simulation {
     }
 
 
-    public void run(){
+    public void run(WorldMap map){
         int numberOfAnimals = animals.size();
         int currentAnimalIndex = 0;
+
+        for (Animal animal : animals) {
+            map.place(animal);
+        }
+
         for (MoveDirection move : moves) {
 
             if (currentAnimalIndex == numberOfAnimals) currentAnimalIndex = 0;
 
-            animals.get(currentAnimalIndex).move(move);
-            System.out.println("Zwierze " + currentAnimalIndex + ": " + animals.get(currentAnimalIndex));
+            map.move(animals.get(currentAnimalIndex), move);
+            System.out.println(map);
+
             currentAnimalIndex++;
         }
     }

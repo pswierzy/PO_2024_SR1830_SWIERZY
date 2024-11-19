@@ -14,7 +14,12 @@ public class Animal {
     }
 
     public String toString() {
-        return direction.toString() + " " + position.toString();
+        return switch(this.direction) {
+            case NORTH -> "^";
+            case EAST -> ">";
+            case SOUTH -> "v";
+            case WEST -> "<";
+        };
     }
     boolean isAt(Vector2d position) {
         return this.position.equals(position);
@@ -27,22 +32,18 @@ public class Animal {
         return position;
     }
 
-    public void move(MoveDirection direction) {
+    public void move(MoveDirection direction, MoveValidator validator) {
 
         switch (direction) {
             case FORWARD: {
-                this.position = this.position.add(this.direction.toUnitVector());
-
-                if (this.position.getX()<0||this.position.getY()<0||this.position.getX()>4||this.position.getY()>4) {
-                    this.position = this.position.subtract(this.direction.toUnitVector());
+                if (validator.canMoveTo(this.position.add(this.direction.toUnitVector()))){
+                    this.position = this.position.add(this.direction.toUnitVector());
                 }
                 break;
             }
             case BACKWARD: {
-                this.position = this.position.subtract(this.direction.toUnitVector());
-
-                if (this.position.getX()<0||this.position.getY()<0||this.position.getX()>4||this.position.getY()>4) {
-                    this.position = this.position.add(this.direction.toUnitVector());
+                if (validator.canMoveTo(this.position.subtract(this.direction.toUnitVector()))) {
+                    this.position = this.position.subtract(this.direction.toUnitVector());
                 }
                 break;
             }
@@ -54,5 +55,4 @@ public class Animal {
                 break;
         }
     }
-
 }
