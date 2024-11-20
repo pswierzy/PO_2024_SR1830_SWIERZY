@@ -51,11 +51,13 @@ public class GrassField extends AbstractWorldMap {
     public String toString() {
         int maxX = (int) sqrt(numberOfGrass*10);
         int maxY = (int) sqrt(numberOfGrass*10);
-        for(Vector2d position : grassMap.keySet()){
-            if (position.getX()>maxX) maxX = position.getX();
-            if (position.getY()>maxY) maxY = position.getY();
+        Vector2d up_right = new Vector2d(maxX, maxY);
+        Vector2d down_left = new Vector2d(0, 0);
+        for(Vector2d position : animals.keySet()){
+            up_right = up_right.upperRight(position);
+            down_left = down_left.lowerLeft(position);
         }
-        return new MapVisualizer(this).draw(new Vector2d(0,0), new Vector2d(maxX,maxY));
+        return new MapVisualizer(this).draw(down_left, up_right);
     }
 
     @Override
