@@ -23,7 +23,7 @@ class SimulationTest {
         List<Animal> animals = new ArrayList<>(Arrays.asList(animal1, animal2, animal3));
         //when
         Simulation simulation = new Simulation(0,directions, animals);
-        simulation.run(map);
+        simulation.run();
         //then
         assertEquals(animal1.getDirection(), MapDirection.NORTH);
         assertEquals(animal2.getDirection(), MapDirection.NORTH);
@@ -42,7 +42,7 @@ class SimulationTest {
         List<Animal> animals = new ArrayList<>(Arrays.asList(animal1, animal2, animal3));
         //when
         Simulation simulation = new Simulation(0,directions, animals);
-        simulation.run(map);
+        simulation.run();
         //then
         assertEquals(animal1.getPosition(), new Vector2d(1,2));
         assertEquals(animal2.getPosition(), new Vector2d(2,2));
@@ -62,7 +62,7 @@ class SimulationTest {
         List<Animal> animals = new ArrayList<>(Arrays.asList(animal1, animal2, animal3, animal4));
         //when
         Simulation simulation = new Simulation(0,directions, animals);
-        simulation.run(map);
+        simulation.run();
         //then
         assertEquals(animal1.getPosition(), new Vector2d(0,1));
         assertEquals(animal2.getPosition(), new Vector2d(2,0));
@@ -81,7 +81,7 @@ class SimulationTest {
         List<Animal> animals = new ArrayList<>(Arrays.asList(animal1, animal2));
         //when
         Simulation simulation = new Simulation(0,directions, animals);
-        simulation.run(map);
+        simulation.run();
         //then
         assertEquals(animal1.getPosition(), new Vector2d(2,1));
         assertEquals(animal2.getPosition(), new Vector2d(2,2));
