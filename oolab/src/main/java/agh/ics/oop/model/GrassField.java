@@ -14,6 +14,8 @@ public class GrassField extends AbstractWorldMap {
     public GrassField(int numberOfGrass) {
         this.numberOfGrass = numberOfGrass;
         createGrassMap();
+        this.MapID = NextMapID;
+        NextMapID++;
     }
     private void createGrassMap() {
         Random rand = new Random();
