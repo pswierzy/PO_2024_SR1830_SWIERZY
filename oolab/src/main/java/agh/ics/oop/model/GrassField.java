@@ -14,6 +14,8 @@ public class GrassField extends AbstractWorldMap {
     public GrassField(int numberOfGrass) {
         this.numberOfGrass = numberOfGrass;
         createGrassMap();
+        this.MapID = NextMapID;
+        NextMapID++;
     }
     private void createGrassMap() {
         Random rand = new Random();
@@ -48,20 +50,22 @@ public class GrassField extends AbstractWorldMap {
     }
 
     @Override
-    public String toString() {
-        int maxX = (int) sqrt(numberOfGrass*10);
-        int maxY = (int) sqrt(numberOfGrass*10);
-        for(Vector2d position : grassMap.keySet()){
-            if (position.getX()>maxX) maxX = position.getX();
-            if (position.getY()>maxY) maxY = position.getY();
-        }
-        return new MapVisualizer(this).draw(new Vector2d(0,0), new Vector2d(maxX,maxY));
-    }
-
-    @Override
     public List<WorldElement> getElements() {
         List<WorldElement> elements = super.getElements();
         elements.addAll(grassMap.values());
         return elements;
+    }
+
+    @Override
+    public Boundary getCurrentBounds(){
+        int maxX = (int) sqrt(numberOfGrass*10);
+        int maxY = (int) sqrt(numberOfGrass*10);
+        Vector2d up_right = new Vector2d(maxX, maxY);
+        Vector2d down_left = new Vector2d(0, 0);
+        for(Vector2d position : animals.keySet()){
+            up_right = up_right.upperRight(position);
+            down_left = down_left.lowerLeft(position);
+        }
+        return new Boundary(down_left, up_right);
     }
 }

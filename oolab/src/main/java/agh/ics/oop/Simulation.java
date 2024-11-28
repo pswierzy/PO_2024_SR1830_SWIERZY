@@ -5,7 +5,7 @@ import agh.ics.oop.model.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Simulation {
+public class Simulation implements Runnable {
 
     private final List<Vector2d> startPositions;
     private final List<MoveDirection> moves;
@@ -18,8 +18,13 @@ public class Simulation {
         this.map = map;
         createAnimalList();
 
-        for (Animal animal : animals) {
-            map.place(animal);
+        try{
+            for (Animal animal : animals) {
+                map.place(animal);
+            }
+        }
+        catch (IncorrectPositionException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -46,14 +51,11 @@ public class Simulation {
         int numberOfAnimals = animals.size();
         int currentAnimalIndex = 0;
 
-
-
         for (MoveDirection move : moves) {
 
             if (currentAnimalIndex == numberOfAnimals) currentAnimalIndex = 0;
 
             map.move(animals.get(currentAnimalIndex), move);
-            System.out.println(map);
 
             currentAnimalIndex++;
         }
