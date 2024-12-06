@@ -29,7 +29,7 @@ public class Simulation implements Runnable {
     }
 
     //Do testów
-    public Simulation(int a, List<MoveDirection> moves, List<Animal> animals) {
+    public Simulation(List<MoveDirection> moves, List<Animal> animals) {
         this.startPositions = new ArrayList<>();
         this.moves = moves;
         this.animals = animals;
