@@ -20,6 +20,7 @@ public class SimulationApp extends Application {
         primaryStage.minWidthProperty().bind(viewRoot.minWidthProperty());
         primaryStage.minHeightProperty().bind(viewRoot.minHeightProperty());
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
@@ -30,16 +31,12 @@ public class SimulationApp extends Application {
 
         SimulationPresenter presenter = loader.getController();
 
-        List<MoveDirection> directions = OptionsParser.parse(getParameters().getRaw());
-        List<Vector2d> positions = List.of(new Vector2d(2,2), new Vector2d(2,3));
         ConsoleMapDisplay observer = new ConsoleMapDisplay();
 
         WorldMap worldMap = new GrassField(10);
         presenter.setWorldMap(worldMap);
         worldMap.registerObserver(presenter);
         worldMap.registerObserver(observer);
-        Simulation simulation = new Simulation(positions, directions, worldMap);
-        simulation.run();
 
         stage.show();
     }
